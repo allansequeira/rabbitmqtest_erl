@@ -1,5 +1,10 @@
 *.beam
 deps
+ebin
+doc
+docs
+_test
+.eunit
 
 # OSX
 .DS_Store
@@ -16,3 +21,5 @@ deps
 .settings
 .classpath
 .idea
+
+

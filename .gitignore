@@ -1,0 +1,18 @@
+*.beam
+deps
+
+# OSX
+.DS_Store
+
+
+# Intellij IDEA
+*.iws
+*.ipr
+*.iml
+
+
+# Eclipse & Netbeans
+.project
+.settings
+.classpath
+.idea

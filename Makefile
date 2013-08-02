@@ -30,3 +30,6 @@ get-deps:
 
 test:
 	@$(REBAR) skip_deps=true eunit
+
+run-consumer:
+	@erl -pa ./ebin ./deps/amqp_client/ebin ./deps/rabbit_common/ebin -run platform_message_consumer start -noshell

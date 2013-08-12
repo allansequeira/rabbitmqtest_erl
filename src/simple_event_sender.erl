@@ -97,7 +97,7 @@ loop(Count, Connection, Channel, X, RoutingKey) ->
         Msg = #amqp_msg{props = Props, payload = Event},
         amqp_channel:cast(Channel, Publish, Msg),
 
-        timer:sleep(2000),
+        timer:sleep(1000),
         NewCount = Count + 1,
 
         self() ! {send_msg, NewCount, "Event sent from simple event sender"},

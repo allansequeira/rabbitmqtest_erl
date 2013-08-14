@@ -64,7 +64,15 @@ stop() ->
   ?SERVER ! shutdown.
 
 get_count() ->
-  ?SERVER ! get_count.
+  ?SERVER ! {get_count, self()},
+  receive
+    {ok, Count} ->
+      io:format("Got a count of messages: ~p~n", [Count]);
+    _ ->
+      io:format("What was that again?")
+  end,
+  ok.
+  %%?SERVER ! get_count.
 
 %%
 %% Local functions
@@ -103,8 +111,9 @@ loop(Count, Connection, Channel, X, RoutingKey) ->
         self() ! {send_msg, NewCount, "Event sent from simple event sender"},
 
         loop(NewCount, Connection, Channel, X, RoutingKey);
-    get_count ->
-        io:format("Count of messages sent: ~p~n", [Count]),
+    {get_count, From} ->
+        %%io:format("Count of messages sent: ~p~n", [Count]),
+        From ! {ok, Count},
         loop(Count, Connection, Channel, X, RoutingKey);
     shutdown ->
         io:format("Shutting down simple event sender ~n"),

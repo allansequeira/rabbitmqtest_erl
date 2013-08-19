@@ -21,7 +21,7 @@
 %%
 start() ->
   %% Start a network connection
-  {ok, Connection} = amqp_connection:start(#amqp_params_network{host="localhost", port=5670}),
+  {ok, Connection} = amqp_connection:start(#amqp_params_network{host="localhost", port=5672}),
 
   %% Open a channel on the connection
   {ok, Channel} = amqp_connection:open_channel(Connection),
@@ -30,7 +30,7 @@ start() ->
   Q = <<"test-queue">>,
   RoutingKey = <<"test-key">>,
 
-  %% declare a exchange (direct, durable)
+  %% declare a exchange (direct, non-durable)
   ExchangeDeclare = #'exchange.declare'{exchange = X},
   #'exchange.declare_ok'{} = amqp_channel:call(Channel, ExchangeDeclare),
 
@@ -56,7 +56,7 @@ start() ->
 
 
   %% close channel, close connection
-  %cleanup(Connection, Channel),
+  %%cleanup(Connection, Channel),
 
   ok.
 
